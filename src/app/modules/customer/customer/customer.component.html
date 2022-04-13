@@ -1,0 +1,32 @@
+<c-title>
+  <div class="customer__title">
+    <span>Cliente</span>
+    <div class="customer__actions">
+      <a mat-raised-button color="secundary" [routerLink]="['/']">Voltar</a>
+      <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+    </div>
+  </div>
+</c-title>
+<mat-card class="customer">
+  <form class="customer__form" [formGroup]="customerForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="nameControlInvalid"> Nome é obrigatório </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="phone" />
+      <mat-error *ngIf="phoneControlInvalid"> Telefone é obrigatório </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="customer__form--address">
+      <mat-label>Endereço</mat-label>
+      <input matInput formControlName="address" />
+      <mat-error *ngIf="addressControlInvalid"> Endereço é obrigatório </mat-error>
+    </mat-form-field>
+  </form>
+</mat-card>
+
+<customer-cars [(cars)]="cars" ></customer-cars>

@@ -1,0 +1,73 @@
+<div class="customer-cars">
+  <div class="customer-cars__header">
+    <span class="customer-cars__header--title">Carros</span>
+    <button mat-raised-button color="primary" (click)="edit()" *ngIf="!isEditing">
+      Adicionar carro
+    </button>
+  </div>
+
+  <form class="customer-cars__form" *ngIf="isEditing" [formGroup]="carForm">
+    <mat-form-field appearance="fill" class="customer__form--model">
+      <mat-label>Modelo</mat-label>
+      <input matInput formControlName="model" />
+      <mat-error *ngIf="modelControlInvalid"> Modelo é obrigatório </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cor</mat-label>
+      <input matInput formControlName="color" />
+      <mat-error *ngIf="colorControlInvalid"> Cor é obrigatório </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Ano</mat-label>
+      <input matInput formControlName="year" />
+      <mat-error *ngIf="yearControlInvalid"> Ano é obrigatório </mat-error>
+    </mat-form-field>
+
+    <div class="customer-cars__form--actions">
+      <button mat-raised-button color="secundary" type="button" (click)="resetEditing()">
+        Fechar
+      </button>
+      <button mat-raised-button color="primary" type="button" (click)="finalizeChange()">
+        Finalizar mudança
+      </button>
+    </div>
+  </form>
+
+  <table
+    mat-table
+    [dataSource]="cars"
+    class="mat-elevation-z8"
+    *ngIf="!isEditing"
+  >
+    <ng-container
+      *ngFor="let column of columns"
+      [matColumnDef]="column.columnProp"
+    >
+      <th mat-header-cell *matHeaderCellDef>{{ column.columnName }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element[column.columnProp] }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td
+        mat-cell
+        *matCellDef="let element; let i = index"
+        class="customers__actions"
+      >
+        <button mat-icon-button color="primary" (click)="edit(element, i)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="delete(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="header"></tr>
+    <tr mat-row *matRowDef="let row; columns: header"></tr>
+  </table>
+</div>

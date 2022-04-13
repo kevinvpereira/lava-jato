@@ -1,0 +1,12 @@
+.customers {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  margin: 1% 2%;
+
+  &__title{
+      display: flex;
+      justify-content: space-between;
+  }
+}
